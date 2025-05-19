@@ -8,24 +8,24 @@ package decorator
  */
 // 
 interface Fighter {
-    fun fightWith(): String 
+    fun fightWith(): String
 }
 
 open class MeleeFighter(
     val name: String,
 ): Fighter {
     override fun fightWith(): String {
-        return "fight with: " 
+        return "fight with:" 
     }
 }
 
-abstract class MeleeWeaponDecorator(val meleeFighter: MeleeFighter): MeleeFighter(meleeFighter.name) {
+abstract class MeleeWeaponDecorator(val fighter: MeleeFighter): MeleeFighter(fighter.name) {
     override fun fightWith(): String {
-        return meleeFighter.fightWith()
+        return fighter.fightWith()
     }
 }
 
-class SwordDecorator(meleeFighter: MeleeFighter): MeleeWeaponDecorator(meleeFighter) {
+class SwordDecorator(meleeFighter:  MeleeFighter): MeleeWeaponDecorator(meleeFighter) {
     override fun fightWith(): String {
         return super.fightWith() + " Sword"
     }    
@@ -44,7 +44,7 @@ class AxeDecorator(meleeFighter: MeleeFighter): MeleeWeaponDecorator(meleeFighte
 }
 
 fun main() {
-    val conan: MeleeFighter = MeleeFighter(name = "Conan")
+    val conan = MeleeFighter(name = "Conan")
     
     val conanWithSword = SwordDecorator(conan)
     val conanWithSwordAndSpearDecorator = AxeDecorator(conanWithSword)
