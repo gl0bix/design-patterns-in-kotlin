@@ -15,7 +15,7 @@ open class MeleeFighter(
     val name: String,
 ): Fighter {
     override fun fightWith(): String {
-        return "fight with:" 
+        return "fights with:" 
     }
 }
 
@@ -47,9 +47,9 @@ fun main() {
     val conan = MeleeFighter(name = "Conan")
     
     val conanWithSword = SwordDecorator(conan)
-    val conanWithSwordAndSpearDecorator = AxeDecorator(conanWithSword)
+    val conanWithSwordAndSpear = AxeDecorator(conanWithSword)
 
-    println(conan.fightWith())
-    println(conanWithSword.fightWith())
-    println(conanWithSwordAndSpearDecorator.fightWith())
+    println("${conan.name} ${conan.fightWith()}")
+    println("${conanWithSword.name} ${conanWithSword.fightWith()}")
+    println("${conanWithSwordAndSpear.name} ${conanWithSwordAndSpear.fightWith()}")
 }
