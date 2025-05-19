@@ -1,6 +1,5 @@
 package observer
 
-
 /**
  * The Observer Pattern defines a one-to-many
  * dependency between objects so that when one
@@ -19,7 +18,7 @@ interface Magazine {
 class AmazingNews(
     override val name: String,
     val subscribers: MutableList<Pair<MagazineSubscriber, Subscription>>
-) : Magazine {
+): Magazine {
     override fun addSubscriber(magazineSubscriber: MagazineSubscriber, subscription: Subscription) {
         if (subscribers.add(Pair(magazineSubscriber, subscription))) {
             println("${magazineSubscriber.name} added!")
@@ -57,7 +56,7 @@ object AnnualSubscription : Subscription {
 }
 
 
-fun main() {
+fun main(){
     val aMagazineSubscriber = MagazineSubscriber(
         name = "Freddy Mercury",
     )
