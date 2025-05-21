@@ -8,48 +8,56 @@ package decorator
  */
 // 
 interface Fighter {
+    val name: String 
     fun fightWith(): String
 }
 
-open class MeleeFighter(
-    val name: String,
-): Fighter {
+class MeleeFighter(override val name: String): Fighter {
     override fun fightWith(): String {
         return "fights with:" 
     }
 }
 
-abstract class MeleeWeaponDecorator(val fighter: MeleeFighter): MeleeFighter(fighter.name) {
+abstract class MeleeWeaponDecorator(protected val meleeFighter: Fighter): Fighter   
+
+class SwordDecorator(
+    meleeFighter : Fighter, 
+    override val name: String = meleeFighter.name
+) : MeleeWeaponDecorator(meleeFighter) {
+    
     override fun fightWith(): String {
-        return fighter.fightWith()
+        return meleeFighter.fightWith() + " Sword"    
     }
 }
 
-class SwordDecorator(meleeFighter:  MeleeFighter): MeleeWeaponDecorator(meleeFighter) {
-    override fun fightWith(): String {
-        return super.fightWith() + " Sword"
-    }    
-}
+class SpearDecorator(
+    meleeFighter : Fighter,
+    override val name: String = meleeFighter.name
+) : MeleeWeaponDecorator(meleeFighter) {
 
-class SpearDecorator(meleeFighter: MeleeFighter): MeleeWeaponDecorator(meleeFighter) {
     override fun fightWith(): String {
-        return super.fightWith() + " Spear"
+        return meleeFighter.fightWith() + " Spear" 
     }
 }
 
-class AxeDecorator(meleeFighter: MeleeFighter): MeleeWeaponDecorator(meleeFighter) {
+class AxeDecorator(
+    meleeFighter : Fighter,
+    override val name: String = meleeFighter.name
+) : MeleeWeaponDecorator(meleeFighter) {
+
     override fun fightWith(): String {
-        return super.fightWith() + " Axe"
+        return meleeFighter.fightWith() + " Axe" 
     }
 }
 
 fun main() {
     val conan = MeleeFighter(name = "Conan")
-    
     val conanWithSword = SwordDecorator(conan)
-    val conanWithSwordAndSpear = AxeDecorator(conanWithSword)
-
+    val conanWithSwordAndAxe = AxeDecorator(conanWithSword)
+    val conanWithSwordAxeAndSpear = SpearDecorator(conanWithSwordAndAxe)
+    
     println("${conan.name} ${conan.fightWith()}")
     println("${conanWithSword.name} ${conanWithSword.fightWith()}")
-    println("${conanWithSwordAndSpear.name} ${conanWithSwordAndSpear.fightWith()}")
+    println("${conanWithSwordAndAxe.name} ${conanWithSwordAndAxe.fightWith()}")
+    println("${conanWithSwordAxeAndSpear.name} ${conanWithSwordAxeAndSpear.fightWith()}")
 }
