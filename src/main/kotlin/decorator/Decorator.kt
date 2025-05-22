@@ -18,12 +18,9 @@ class MeleeFighter(override val name: String): Fighter {
     }
 }
 
-abstract class MeleeWeaponDecorator(protected val meleeFighter: Fighter): Fighter   
-
 class SwordDecorator(
-    meleeFighter : Fighter, 
-    override val name: String = meleeFighter.name
-) : MeleeWeaponDecorator(meleeFighter) {
+    private val meleeFighter : Fighter, 
+) : Fighter by meleeFighter {
     
     override fun fightWith(): String {
         return meleeFighter.fightWith() + " Sword"    
@@ -31,19 +28,17 @@ class SwordDecorator(
 }
 
 class SpearDecorator(
-    meleeFighter : Fighter,
-    override val name: String = meleeFighter.name
-) : MeleeWeaponDecorator(meleeFighter) {
-
+    private val meleeFighter : Fighter,
+) : Fighter by meleeFighter {
+    
     override fun fightWith(): String {
         return meleeFighter.fightWith() + " Spear" 
     }
 }
 
 class AxeDecorator(
-    meleeFighter : Fighter,
-    override val name: String = meleeFighter.name
-) : MeleeWeaponDecorator(meleeFighter) {
+    private val meleeFighter : Fighter,
+) : Fighter by meleeFighter {
 
     override fun fightWith(): String {
         return meleeFighter.fightWith() + " Axe" 
